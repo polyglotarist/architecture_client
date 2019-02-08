@@ -1,8 +1,7 @@
 class Client::BuildingsController < ApplicationController
 
-  def index
-    response = HTTP.get("http://localhost:3000/api/buildings")
-    @buildings = response.parse
+   def index
+    @buildings = Building.all
     render 'index.html.erb'
   end
 
@@ -29,8 +28,7 @@ class Client::BuildingsController < ApplicationController
   end
 
   def show
-    response = HTTP.get("http://localhost:3000/api/buildings/#{params[:id]}")
-    @building = response.parse
+    @building = Building.find(params[:id])
     render 'show.html.erb'
   end
 
