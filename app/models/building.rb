@@ -40,9 +40,7 @@ class Building
     response = HTTP.patch(
                           "http://localhost:3000/api/buildings/#{ self.id }",
                           form: updated_info
-                          )    
-    updated_building_data = response.parse
-    Building.new(updated_building_data)
+                           )    
   end
 
   def destroy
