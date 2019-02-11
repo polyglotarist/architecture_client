@@ -11,7 +11,9 @@ class Building
   end
   
   def self.find(input_id)
-    response = HTTP.get("http://localhost:3000/api/buildings/#{ input_id }")
+    @input_id = input_id
+    response = HTTP.get("http://localhost:3000/api/buildings/#{ input_id }") 
+   
     building_data = response.parse
     Building.new(building_data)
   end
@@ -25,4 +27,25 @@ class Building
     end 
   end
 
+  def self.create(new_building)
+    response = HTTP.post(
+                         "http://localhost:3000/api/buildings", 
+                         form: new_building
+                        )
+    new_building_data = response.parse
+    Building.new(new_building_data)
+  end
+
+  def update(updated_info)
+    response = HTTP.patch(
+                          "http://localhost:3000/api/buildings/#{ self.id }",
+                          form: updated_info
+                          )    
+    updated_building_data = response.parse
+    Building.new(updated_building_data)
+  end
+
+  def destroy
+    HTTP.delete("http://localhost:3000/api/buildings/#{ self.id }")
+  end
 end
